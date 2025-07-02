@@ -42,6 +42,8 @@ services:
     ports:
       - target: 4000
         published: ${BACKEND_PORT:-4000}
+      - target: 4001
+        published: ${WEBSOCKET_PORT:-4001}
     # ADDED: Resource allocation for backend (Elixir/Phoenix)
     deploy:
       resources:
