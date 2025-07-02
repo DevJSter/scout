@@ -42,6 +42,15 @@ services:
     ports:
       - target: 4000
         published: ${BACKEND_PORT:-4000}
+    # ADDED: Resource allocation for backend (Elixir/Phoenix)
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'      # Use 4 cores max
+          memory: 8G       # 8GB RAM
+        reservations:
+          cpus: '1.0'      # Reserve 1 core minimum
+          memory: 1G       # Reserve 1GB minimum
     volumes:
       - type: bind
         source: ./genesis.json
@@ -60,3 +69,12 @@ services:
     ports:
       - target: 3000
         published: ${FRONTEND_PORT:-3000}
+    # ADDED: Resource allocation for frontend (Next.js)
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'      # Use 4 cores max
+          memory: 4G       # 4GB RAM
+        reservations:
+          cpus: '0.5'      # Reserve 0.5 core minimum
+          memory: 512M     # Reserve 512MB minimum
